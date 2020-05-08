@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div>
+  <h1>please Login Here:</h1>
+  <h3>(Must be a superuser,please check with admin site)</h3>
+  {% if form.errors %}
+  <p>Your username and password didnt match</p>
+  {% endif %}
+  <form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" class='btn btn-primary'  value="Login">
+    <input type="hidden" name="next" value="{{next}}">
+  </form>
+</div>
+{% endblock %}

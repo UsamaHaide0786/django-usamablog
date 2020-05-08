@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% load static %}
+
+  <link rel="stylesheet" href="{%static 'css/post_list.css'%}">
+<div class="centerstage">
+
+  {% for post in post_list %}
+  <div class="post">
+
+      <h1>@{{post.author}}<span class="glyphicon glyphicon-user"></span></h1>
+      <hr>
+      <h2>
+      <a href="{% url 'post_detail' pk=post.pk %}">{{post.title}} </a>
+      </h2>
+      <p class="postcontent">{{post.text|safe|linebreaksbr}}</p>
+      {% if post.Post_image%}
+
+      <img src="{{post.Post_image.url}}" alt="">
+
+      {% else %}
+      <p class="images">No Image For This Post</p>
+      {% endif %}
+
+    <div class="date">
+      <p>Published on: {{post.published_date|date:"D M Y"}}</p>
+
+    </div>
+    <a href="{% url 'post_detail' pk=post.pk %}">Comments:{{ post.approve_comments.count }}</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
